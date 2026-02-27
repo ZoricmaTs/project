@@ -1,0 +1,111 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  width: calc(100% - (var(--spacing-gutter)*5));
+  margin: calc(var(--spacing-gutter)*2) calc(var(--spacing-gutter)*2) calc(var(--spacing-gutter)*3) calc(var(--spacing-gutter)*2);
+
+
+  &__logo {
+    height: 100%;
+    width: 8rem;
+    margin-right: 2rem;
+    transition: transform 0.3s;
+
+    &_img {
+      height: 100%;
+      width: 8rem;
+      max-width: unset;
+    }
+
+    &._hidden {
+      transform: translateY(-300px);
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-left: 12px;
+    transition: transform .3s;
+
+    &._hidden {
+      transform: translateY(-300px);
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+  &__item {
+
+    color: #CDB4DB;
+    background-color: rgb(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    border-radius: 2rem;
+    border: 0.125rem solid rgb(255, 255, 255, 0.3);
+    outline: none;
+    backdrop-filter: blur(7px);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.04);
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.15);
+      transform: scale(0.97);
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #CDB4DB;
+    margin-left: 2rem;
+    border-radius: 2rem;
+    width: 50px;
+    height: 50px;
+    backdrop-filter: blur(7px);
+    background-color: rgb(255, 255, 255, 0.15);
+    border: 0.125rem solid rgb(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+
+    &._hidden {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.04);
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.15);
+      transform: scale(0.97);
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .header {
+    &__items {
+      display: none;
+    }
+
+    &__menu {
+      &._hidden {
+        display: flex;
+      }
+    }
+  }
+}
