@@ -1,0 +1,41 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+
+    &__label {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+    }
+
+    &__field {
+      padding: 0.25rem 1rem;
+      border: var(--color-outline-border);
+      border-radius: 1rem;
+      font-size: 1rem;
+      background-color: transparent;
+      color: var(--color-primary-text);
+      transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+
+      &:focus, &:hover {
+        outline: none;
+        border: var(--color-outline-border-hover);
+        background-color: var(--color-outline-hover);
+      }
+
+      &_wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+  &__password-btn {
+    color: var(--color-text-secondary);
+
+    &:hover {
+        color: var(--color-border-focus);
+      }
+  }
+}
