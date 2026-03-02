@@ -8,7 +8,7 @@ import { routeTree } from './routeTree.gen';
 import '@fontsource/montserrat/400.css';      // Regular
 import '@fontsource/montserrat/700.css';      // Bold
 import '@fontsource/montserrat/400-italic.css'; // Italic
-import {Api, ApiContext} from './api';
+import {api, ApiContext} from './api';
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -21,9 +21,6 @@ declare module '@tanstack/react-router' {
 }
 
 async function main() {
-  const api = new Api();
-
-
   // Render the app
   const rootElement = document.getElementById('root')!
   if (!rootElement.innerHTML) {

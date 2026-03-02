@@ -1,4 +1,5 @@
 import React from 'react';
+import type {User} from './store/useUserStore.ts';
 
 const API_URL = 'http://localhost:3000';
 
@@ -15,15 +16,25 @@ export class Api {
   // }
 
   async login(email: string, password: string) {
-    return fetch(`${API_URL}/login`, {
+    const res = (await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-      body: JSON.stringify({ email, password }),
-    }).then(res => res.json());
+      body: JSON.stringify({email, password}),
+    }).then(res => res.json()) as { token: string, user: User });
+
+    this.setToken(res.token);
+
+    return res;
+  }
+
+  async logout() {
+    localStorage.removeItem('token');
+    this.token = undefined;
   }
 }
 
-export const ApiContext = React.createContext<Api | null>(null);
+export const api = new Api();
+export const ApiContext = React.createContext<Api>(api);

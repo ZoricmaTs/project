@@ -1,5 +1,6 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router'
 import {Button} from '../widgets/button';
+import {useUserStore} from '../store/useUserStore.ts';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -7,6 +8,8 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   const navigate = useNavigate();
+  const userStore = useUserStore();
+  console.log('userStore', )
   return (
     <div className={'scene'}>
       <Button
@@ -17,6 +20,7 @@ function Index() {
         {'authorization'}
       </Button>
       <h3>Welcome Home!</h3>
+      <p>привет!!!! {userStore.user?.name}</p>
     </div>
   )
 }
