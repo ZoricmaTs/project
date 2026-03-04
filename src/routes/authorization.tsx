@@ -16,9 +16,10 @@ function RouteComponent() {
     const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
     const password = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
 
-    userStore.authorize({email, password}).then(() => {
-      navigate({to: '/'}).catch(null);
-    }).catch(() => {
+    userStore.authorize({email, password}).then((id) => {
+      navigate({to: `/profile/${id}`}).catch(null);
+    }).catch((err) => {
+      console.log('Authorization error', err);
       alert('Login failed!');
     });
   }

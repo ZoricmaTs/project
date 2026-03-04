@@ -14,7 +14,7 @@ export interface UserStore {
   authorize: (params: {
     email: string,
     password: string,
-  }) => Promise<void>;
+  }) => Promise<string>;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -26,6 +26,8 @@ export const useUserStore = create<UserStore>()(
       set((state) => {
         state.user = user;
       });
+
+      return user.id;
     },
   })),
 );

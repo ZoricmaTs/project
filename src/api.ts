@@ -1,9 +1,15 @@
 import React from 'react';
 import type {User} from './store/useUserStore.ts';
+import axiosConstructor from 'axios';
 
 const API_URL = 'http://localhost:3000';
 
 export class Api {
+  axios = axiosConstructor.create({
+    baseURL: API_URL,
+    withCredentials: true,
+  });
+
   accessToken?: string;
 
   setToken(accessToken: string) {
@@ -11,20 +17,45 @@ export class Api {
     this.accessToken = accessToken;
   }
 
-  // async initialize() {
-  //   this.token = localStorage.getItem('token');
-  // }
+  async initialize() {
+    this.axios.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (error.response?.status === 401) {
+          try {
+            const {data} = await this.axios.post(
+              '/refresh',
+              {},
+              {withCredentials: true},
+            );
+
+            this.setToken(data.accessToken);
+
+            error.config.headers.Authorization = `Bearer ${data.accessToken}`;
+
+
+            return this.axios.request(error.config);
+          } catch (e) {
+            window.location.href = '/login';
+          }
+        }
+
+        return Promise.reject(error);
+      },
+    );
+  }
 
   async login(email: string, password: string) {
-    const res = (await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.accessToken}`,
-      },
-      credentials: "include",
-      body: JSON.stringify({email, password}),
-    }).then(res => res.json()) as { accessToken: string, user: User });
+    const res = (await this.axios.post<{ accessToken: string, user: User }>(`/login`, JSON.stringify({
+        email,
+        password,
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+      })
+    ).data;
 
     this.setToken(res.accessToken);
 

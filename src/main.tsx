@@ -20,7 +20,9 @@ declare module '@tanstack/react-router' {
   }
 }
 
-async function main() {
+async function main(){
+  await api.initialize();
+
   // Render the app
   const rootElement = document.getElementById('root')!
   if (!rootElement.innerHTML) {
