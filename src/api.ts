@@ -4,11 +4,11 @@ import type {User} from './store/useUserStore.ts';
 const API_URL = 'http://localhost:3000';
 
 export class Api {
-  token?: string;
+  accessToken?: string;
 
-  setToken(token: string) {
-    localStorage.setItem('token', token);
-    this.token = token;
+  setToken(accessToken: string) {
+    localStorage.setItem('token', accessToken);
+    this.accessToken = accessToken;
   }
 
   // async initialize() {
@@ -20,20 +20,21 @@ export class Api {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`,
+        'Authorization': `Bearer ${this.accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify({email, password}),
-    }).then(res => res.json()) as { token: string, user: User });
+    }).then(res => res.json()) as { accessToken: string, user: User });
 
-    this.setToken(res.token);
+    this.setToken(res.accessToken);
 
     return res;
   }
 
-  async logout() {
-    localStorage.removeItem('token');
-    this.token = undefined;
-  }
+  // async logout() {
+  //   localStorage.removeItem('token');
+  //   this.accessToken = undefined;
+  // }
 }
 
 export const api = new Api();

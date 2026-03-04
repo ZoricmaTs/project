@@ -20,7 +20,7 @@ function Index() {
         {'authorization'}
       </Button>
       <h3>Welcome Home!</h3>
-      <p>привет!!!! {userStore.user?.name}</p>
+      {userStore.user && <p>привет!!!! {userStore.user?.name}</p>}
     </div>
   )
 }
