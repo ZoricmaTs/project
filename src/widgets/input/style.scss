@@ -6,7 +6,7 @@
 
     &__label {
       font-size: 1rem;
-      color: var(--color-text-secondary);
+      color: var(--color-text-secondary) !important;
     }
 
     &__field {
@@ -37,5 +37,9 @@
     &:hover {
         color: var(--color-border-focus);
       }
+  }
+
+  &__errors {
+    font-size: 0.875rem;
   }
 }

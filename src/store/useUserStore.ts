@@ -36,7 +36,9 @@ export const useUserStore = create<UserStore>()(
       return user;
     },
     register: async (params) => {
-      const {user} = await api.register(params.name, params.email, params.password);
+      const {user} = await api.register(params.name, params.email, params.password).catch((error) => {
+        throw error;
+      });
 
       set((state) => {
         state.user = user;

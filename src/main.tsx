@@ -30,7 +30,7 @@ async function main(){
     root.render(
       <StrictMode>
         <ApiContext.Provider value={api}>
-          <RouterProvider router={router}/>\
+          <RouterProvider router={router}/>
         </ApiContext.Provider>
       </StrictMode>,
     )

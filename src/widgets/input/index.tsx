@@ -1,6 +1,6 @@
 import './style.scss';
 import React, {useState} from 'react';
-import {EyeIcon, EyeOffIcon} from 'lucide-react';
+import {CircleAlertIcon, EyeIcon, EyeOffIcon} from 'lucide-react';
 
 export type InputType = 'text' | 'password' | 'email';
 export type InputProps = {
@@ -17,8 +17,15 @@ export function Input(props: InputProps) {
   const [currentType, setCurrentType] = useState(props.type);
   const [currentValue, setCurrentValue] = useState(props.value);
 
+  const [currentErrors, setCurrentErrors] = useState(errors);
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(e.target.value);
+    if (e.target.value === '' && props.required) {
+      setCurrentErrors(['This field is required']);
+    } else {
+      setCurrentErrors([]);
+    }
 
     if (onChange) {
       onChange(currentValue);
@@ -40,19 +47,23 @@ export function Input(props: InputProps) {
         onChange={onChangeHandler}
         type={currentType}
         id={id}
-        className={'input__field'}
+        className={`input__field ${currentErrors && currentErrors?.length > 0 ? 'error' : ''}`}
+        required={props.required || false}
         {...rest}
       />
       {type === 'password' && (
-        <button id={`toggle-${id}`} className={'input__password-btn'} onClick={onClickShowPassword}>
+        <button id={`toggle-${id}`} className={`input__password-btn`} onClick={onClickShowPassword}>
           {showPassword ? <EyeIcon /> : <EyeOffIcon />}
         </button>
       )}
-      {errors?.length ? <div className={'input__error-icon'}>!</div> : null}
+      {errors?.length
+        ? <div className={'input__error-icon error'}><CircleAlertIcon /></div>
+        : null
+      }
     </div>
 
-    {errors?.length && <div className={'input__errors'}>
-      {errors.map((error) => (<p key={error}>{error}</p>))}
+    {currentErrors && currentErrors?.length > 0 && <div className={'input__errors error'}>
+      {currentErrors.map((error) => (<p key={error}>{error}</p>))}
     </div>}
   </div>
 }
