@@ -27,7 +27,9 @@ export const useUserStore = create<UserStore>()(
   immer((set) => ({
     user: null,
     authorize: async (params) => {
-      const {user} = await api.login(params.email, params.password);
+      const {user} = await api.login(params.email, params.password).catch((error) => {
+        throw error;
+      });
 
       set((state) => {
         state.user = user;
@@ -51,7 +53,9 @@ export const useUserStore = create<UserStore>()(
         state.user = null;
       });
 
-      return api.logout();
+      return api.logout().catch((error) => {
+        throw error;
+      });
     }
   })),
 );
