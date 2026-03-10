@@ -24,10 +24,10 @@
   --color-primary-border: 0.125rem solid var(--color-primary-bg);
   --color-primary-border-hover: 0.125rem solid var(--color-primary-hover);
 
-  --color-outline-text: #dadadf;
-  --color-outline-text-hover: #6666fb;
+  --color-outline-text: var(--color-primary-text);
+  --color-outline-text-hover: var(--color-primary-hover);
   --color-outline-hover: rgb(23, 13, 39);
-  --color-outline-border: 0.125rem solid #6060b0;
+  --color-outline-border: 0.125rem solid var(--color-primary-bg);
   --color-outline-border-hover: 0.125rem solid var(--color-primary-hover);
 
   --color-disabled: rgb(62,71,109);

@@ -14,7 +14,13 @@ export interface UserStore {
   authorize: (params: {
     email: string,
     password: string,
-  }) => Promise<string>;
+  }) => Promise<User>;
+  register: (params: {
+    name: string,
+    email: string,
+    password: string,
+  }) => Promise<User>;
+  logout: () => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -27,7 +33,23 @@ export const useUserStore = create<UserStore>()(
         state.user = user;
       });
 
-      return user.id;
+      return user;
     },
+    register: async (params) => {
+      const {user} = await api.register(params.name, params.email, params.password);
+
+      set((state) => {
+        state.user = user;
+      });
+
+      return user;
+    },
+    logout: () => {
+      set((state) => {
+        state.user = null;
+      });
+
+      return api.logout();
+    }
   })),
 );

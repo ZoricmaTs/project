@@ -62,10 +62,27 @@ export class Api {
     return res;
   }
 
-  // async logout() {
-  //   localStorage.removeItem('token');
-  //   this.accessToken = undefined;
-  // }
+  async register(name: string, email: string, password: string) {
+    const res = (await this.axios.post<{ user: User }>(`/register`, JSON.stringify({
+        name,
+        email,
+        password,
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    ).data;
+
+    return res;
+  }
+
+  async logout() {
+    await this.axios.get('/logout', {}).then(() => {
+      localStorage.removeItem('token');
+      this.accessToken = undefined;
+    }) ;
+  }
 }
 
 export const api = new Api();

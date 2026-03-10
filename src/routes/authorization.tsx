@@ -33,7 +33,6 @@ function RouteComponent() {
         label={'Email'}
         placeholder={'Email'}
         required
-        onChange={() => {}}
       />
       <Input
         id={'password'}
@@ -41,9 +40,11 @@ function RouteComponent() {
         label={'Password'}
         placeholder={'Password'}
         required
-        onChange={() => {}}
       />
-      <Button type={'submit'}>{'Login'}</Button>
+      <div style={{display: 'flex', gap: '1rem', paddingTop: '1rem'}}>
+        <Button type={'submit'}>{'Login'}</Button>
+        <Button variant={'outline'} onClick={() => navigate({to: '/registration'})}>{'Register'}</Button>
+      </div>
     </form>
   </div>
 }

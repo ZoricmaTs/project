@@ -6,7 +6,7 @@ export type InputType = 'text' | 'password' | 'email';
 export type InputProps = {
   id: string,
   label: string,
-  onChange: (value: unknown) => void,
+  onChange?: (value: unknown) => void,
   errors?: string[],
   type?: InputType,
 } & React.InputHTMLAttributes<HTMLInputElement>;
@@ -19,7 +19,10 @@ export function Input(props: InputProps) {
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(e.target.value);
-    onChange(currentValue);
+
+    if (onChange) {
+      onChange(currentValue);
+    }
   }
 
   const onClickShowPassword = () => {
