@@ -13,6 +13,7 @@ function RouteComponent() {
   const [uploadStatus, setUploadStatus] = React.useState<UploadStatus | null>(null);
   const onUpload = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const form = e.currentTarget;
     const input = form.elements.namedItem("fileInput") as HTMLInputElement;
     const file = input.files?.[0];

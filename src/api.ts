@@ -94,6 +94,10 @@ export class Api {
   async markUploaded(videoId: string) {
     return await this.axios.post(`/videos/${videoId}/uploaded`, {});
   }
+
+  async getVideo(videoId: string): Promise<AxiosResponse<{ id: string, title: string, processedVideos: {url: string}[], validationStatus: string }>> {
+    return await this.axios.get(`/videos/${videoId}`);
+  }
 }
 
 export const api = new Api();

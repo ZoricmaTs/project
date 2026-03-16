@@ -14,6 +14,18 @@ function Index() {
     <div className={'scene'}>
       <Button
         size={'sm'}
+        variant={'outline'}
+        onClick={async () => {
+          const videoId = 'bc5adb4d-9961-4c11-b629-a00faae0871b';
+
+          navigate({to: '/player/$videoId', params: {videoId}}).catch(null);
+        }}
+      >
+        {'player'}
+      </Button>
+
+      <Button
+        size={'sm'}
         variant={'primary'}
         onClick={() => navigate({to: '/authorization'})}
       >
