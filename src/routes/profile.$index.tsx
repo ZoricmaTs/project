@@ -21,6 +21,10 @@ function RouteComponent() {
 
   return <div className={'scene'}>
     <p>{`Hello ${userStore.user?.name}!`}</p>
+
+    <Button size={'sm'} variant={'outline'} onClick={() => navigate({to: '/upload'})}>
+      {'Upload new video'}
+    </Button>
     <Button
       onClick={() => userStore.logout().then(() => navigate({to: '/'}))}
       size={'sm'}

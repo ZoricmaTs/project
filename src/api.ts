@@ -1,6 +1,6 @@
 import React from 'react';
 import type {User} from './store/useUserStore.ts';
-import axiosConstructor from 'axios';
+import axiosConstructor, {type AxiosResponse} from 'axios';
 
 const API_URL = 'http://localhost:3000';
 
@@ -82,6 +82,17 @@ export class Api {
       localStorage.removeItem('token');
       this.accessToken = undefined;
     }) ;
+  }
+
+  async createUploadUrl(filename: unknown, title: string): Promise<AxiosResponse<{ videoId: string,uploadUrl: string }>> {
+    return await this.axios.post("/videos/upload-url",
+      JSON.stringify({ filename, title }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  async markUploaded(videoId: string) {
+    return await this.axios.post(`/videos/${videoId}/uploaded`, {});
   }
 }
 

@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UploadRouteImport } from './routes/upload'
 import { Route as RegistrationRouteImport } from './routes/registration'
 import { Route as AuthorizationRouteImport } from './routes/authorization'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.$index'
 
+const UploadRoute = UploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegistrationRoute = RegistrationRouteImport.update({
   id: '/registration',
   path: '/registration',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/authorization': typeof AuthorizationRoute
   '/registration': typeof RegistrationRoute
+  '/upload': typeof UploadRoute
   '/profile/$index': typeof ProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authorization': typeof AuthorizationRoute
   '/registration': typeof RegistrationRoute
+  '/upload': typeof UploadRoute
   '/profile/$index': typeof ProfileIndexRoute
 }
 export interface FileRoutesById {
@@ -52,25 +60,45 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/authorization': typeof AuthorizationRoute
   '/registration': typeof RegistrationRoute
+  '/upload': typeof UploadRoute
   '/profile/$index': typeof ProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/authorization' | '/registration' | '/profile/$index'
+  fullPaths:
+    | '/'
+    | '/authorization'
+    | '/registration'
+    | '/upload'
+    | '/profile/$index'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/authorization' | '/registration' | '/profile/$index'
-  id: '__root__' | '/' | '/authorization' | '/registration' | '/profile/$index'
+  to: '/' | '/authorization' | '/registration' | '/upload' | '/profile/$index'
+  id:
+    | '__root__'
+    | '/'
+    | '/authorization'
+    | '/registration'
+    | '/upload'
+    | '/profile/$index'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorizationRoute: typeof AuthorizationRoute
   RegistrationRoute: typeof RegistrationRoute
+  UploadRoute: typeof UploadRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/registration': {
       id: '/registration'
       path: '/registration'
@@ -106,6 +134,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorizationRoute: AuthorizationRoute,
   RegistrationRoute: RegistrationRoute,
+  UploadRoute: UploadRoute,
   ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -4,7 +4,7 @@ import {useUserStore} from '../store/useUserStore.ts';
 
 export const Route = createFileRoute('/')({
   component: Index,
-})
+});
 
 function Index() {
   const navigate = useNavigate();
