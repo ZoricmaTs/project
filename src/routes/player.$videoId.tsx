@@ -1,6 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {api} from '../api.ts';
 import React, {useEffect} from 'react';
+import {Player} from '../widgets/player';
 
 export const Route = createFileRoute('/player/$videoId')({
   component: RouteComponent,
@@ -24,9 +25,7 @@ function RouteComponent() {
     <h1>{'Player'}</h1>
     {!video && <p>{'Loading...'}</p>}
     {!!video &&
-      <video controls height={800} width={1200}>
-        <source src={video.processedVideos[0].url} type="video/mp4"/>
-      </video>
+      <Player video={video}/>
     }
   </div>
 }
