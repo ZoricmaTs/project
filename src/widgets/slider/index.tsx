@@ -7,6 +7,7 @@ export type SliderType = {
   max: number;
   min: number;
   step?: number;
+  className?: string;
 }
 
 export function Slider(props: SliderType) {
@@ -102,7 +103,7 @@ export function Slider(props: SliderType) {
   }, []);
 
 
-  return <div className={'slider'}
+  return <div className={(props.className ? props.className : '' + 'slider ')}
     onMouseMove={onMove}
     onClick={onClick}
     onMouseLeave={onLeave}

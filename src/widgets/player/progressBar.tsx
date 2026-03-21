@@ -11,14 +11,13 @@ export type ProgressBarProps = {
 
 export function ProgressBar({progress, className, onSeek, duration}: ProgressBarProps) {
   const onChangeTime = (time: number) => {
-    console.log('seek to', time, duration);
     onSeek(time);
   }
 
   return <div className={`progress-bar ${className ? className : ''}`}>
     {/*<div*/}
     {/*  className={'progress-bar__tooltip'}*/}
-    {/*  style={{left: hoverPos}}*/}
+    {/*  // style={{left: hoverPos}}*/}
     {/*>*/}
     {/*  {getDuration(duration)}*/}
     {/*</div>*/}

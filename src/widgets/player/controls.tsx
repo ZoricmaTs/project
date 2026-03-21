@@ -10,7 +10,6 @@ export type ControlsType = {
 
 export function Controls({videoRef}: ControlsType) {
   const [progress, setProgress] = useState(0);
-  const [volume, setVolume] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState<number | null>(null);
 
@@ -38,15 +37,6 @@ export function Controls({videoRef}: ControlsType) {
     }
   }, [videoRef]);
 
-  const onVolumeUpdate = useCallback(() => {
-    const videoElement = videoRef.current;
-
-    if (videoElement) {
-      setVolume(videoElement.volume);
-    }
-  }, [videoRef]);
-
-
   const onPlay = () => {
     if (!videoRef.current) {
       return;
@@ -65,19 +55,10 @@ export function Controls({videoRef}: ControlsType) {
     const videoElement = videoRef.current;
     
     videoElement?.addEventListener('timeupdate', onTimeUpdate);
-    videoElement?.addEventListener('volumechange', onVolumeUpdate);
-
     return () => {
       videoElement?.removeEventListener('timeupdate', onTimeUpdate);
-      videoElement?.removeEventListener('volumechange', onVolumeUpdate);
     }
-  }, [onTimeUpdate, onVolumeUpdate, videoRef]);
-
-  const onVolumeChange = (volume: number) => {
-    if (videoRef.current) {
-      videoRef.current.volume = volume;
-    }
-  };
+  }, [onTimeUpdate, videoRef]);
 
   const handleSeek = (time: number) => {
     if (videoRef.current) {
@@ -101,7 +82,7 @@ export function Controls({videoRef}: ControlsType) {
             : <PlayIcon />
           }
         </button>
-        <VolumeSlider volume={volume} onVolumeChange={onVolumeChange}/>
+        <VolumeSlider videoRef={videoRef} />
       </div>
       <div className={'player__controls_buttons-right'}>
         {/*<button onClick={openSettings}>*/}
