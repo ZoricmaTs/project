@@ -1,6 +1,7 @@
 import React from 'react';
 import type {User} from './store/useUserStore.ts';
 import axiosConstructor, {type AxiosResponse} from 'axios';
+import type {VideoType} from './widgets/player';
 
 const API_URL = 'http://localhost:3000';
 
@@ -95,7 +96,7 @@ export class Api {
     return await this.axios.post(`/videos/${videoId}/uploaded`, {});
   }
 
-  async getVideo(videoId: string): Promise<AxiosResponse<{ id: string, title: string, processedVideos: {url: string}[], validationStatus: string }>> {
+  async getVideo(videoId: string): Promise<AxiosResponse<VideoType>> {
     return await this.axios.get(`/videos/${videoId}`);
   }
 }

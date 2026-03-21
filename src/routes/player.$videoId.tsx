@@ -1,7 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {api} from '../api.ts';
 import React, {useEffect} from 'react';
-import {Player} from '../widgets/player';
+import {Player, type VideoType} from '../widgets/player';
 
 export const Route = createFileRoute('/player/$videoId')({
   component: RouteComponent,
@@ -9,7 +9,7 @@ export const Route = createFileRoute('/player/$videoId')({
 
 function RouteComponent() {
   const {videoId} = Route.useParams();
-  const [video, setVideo] = React.useState<{ id: string, title: string, processedVideos: {url: string}[], validationStatus: string } | null>(null);
+  const [video, setVideo] = React.useState<VideoType | null>(null);
 
   useEffect(() => {
 
@@ -18,7 +18,6 @@ function RouteComponent() {
     });
   }, [videoId]);
 
-  console.log('video', video);
   // const video720 = video.processedVideos.find(v => v.width === 1280)
 
   return <div className={'scene'}>
